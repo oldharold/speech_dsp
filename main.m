@@ -35,7 +35,6 @@ Nspec = 256;
 wspec = hamming(Nspec);
 Noverlap = Nspec/2;
 [S, fspec, tspec] = spectrogram(audio, wspec, Noverlap, Nspec, fs);
-
 % 时域和频域
 
 subplot(211);
