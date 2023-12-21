@@ -1,4 +1,3 @@
-
 [audio, fs] = audioread('recorded_audio.wav');
 
 
