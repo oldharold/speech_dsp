@@ -1,20 +1,10 @@
-fs = 44100; 
-recObj = audiorecorder(fs,16,1); 
 
-% 音频录制
-time = 5;  
-disp("开始说话!!")
-recordblocking(recObj,time);  
-audio = getaudiodata(recObj); 
-disp("结束录制:)")   
+filename = 'keyboad-typing.wav';
 
 
-% 保存录音文件
-filename = 'recorded_audio.wav';
-audiowrite(filename,audio,fs);
-disp(['录音已保存为 ' filename]);
 
-%[audio, Fs] = audioread(filename); 
+[audio, fs] = audioread(filename); 
+
 
 % 采样点数
 sampleNum = length(audio); 
@@ -40,10 +30,6 @@ subplot(212);
 plot(freqfft, abs(audio_fft(1:length(audio_fft)/2)));
 xlabel('Frequency (Hz)');
 ylabel('|X(f)|');
-
-
-
-
 
 
 % 设计滤波器
