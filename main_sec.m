@@ -1,10 +1,6 @@
-
 filename = 'keyboad-typing.wav';
 
-
-
 [audio, fs] = audioread(filename); 
-
 
 % 采样点数
 sampleNum = length(audio); 
@@ -30,9 +26,6 @@ subplot(212);
 plot(freqfft, abs(audio_fft(1:length(audio_fft)/2)));
 xlabel('Frequency (Hz)');
 ylabel('|X(f)|');
-
-
-% 设计滤波器
 
 % 低通滤波器
 
