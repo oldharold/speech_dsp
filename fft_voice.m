@@ -19,7 +19,6 @@ Noverlap = Nspec/2;
 [Ssteady, fspec, tspec] = spectrogram(audio, wspec, Noverlap, Nspec, fs);
 
 % Plot
-
 subplot(211);  
 plot(t,audio);
 xlabel( 't (s)');
@@ -30,5 +29,6 @@ subplot(212)
 plot(freqfft, abs(audio_fft(1:Nfft/2)));
 xlabel('Frequency (Hz)')
 ylabel('|X(f)|')
+
 
 
