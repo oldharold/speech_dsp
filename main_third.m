@@ -1,6 +1,6 @@
 % main_third.m 使用子函数
 
-filename = 'keyboad-typing.wav';
+filename = 'ChinaStation.wav';
 
 [audio, fs] = audioread(filename); 
 
@@ -25,9 +25,9 @@ TimeFrep_plot(t,audio,fs)
 
 fp1=1000; fs1=1200; rp1=1; rs1=100;
 N1 = 48;
-b = fir1(N1,fp1/(fs/2),'low',kaiser(N1+1));  % 使用汉明窗
+b = fir1(N1,fp1/(fs/2),'low',kaiser(N1+1));  
 
-figure('Name','Hamming');
+figure('Name','Kaiser');
 freqz(b, 1, 1024, fs);
 grid on;
 
@@ -35,20 +35,18 @@ grid on;
 % 设计巴特沃斯高通滤波器
 % fp2=4800 fs2=5000 (Hz)
 % rp2=1 rs2=100 (dB)
-
+T = 5.034
 fp2=4800; fs2=5000; rp2=1; rs2=100;  
-wp2 = 2*pi*fp2/fs; ws2 = 2*pi*fs2/fs;     %归一化
-wp2n = 2*tan(wp2/2)/5;
-ws2n = 2*tan(ws2/2)/5;
 
-[N2,wc2] = buttord(wp2n,ws2n,rp2,rs2);
+wp2 = fp2/(fs/2); ws2 = fs2/(fs/2);
+
+[N2,wc2] = buttord(wp2,ws2,rp2,rs2);
 [B2, A2] = butter(N2, wc2, 'high');
+[Bz, Az] = bilinear(B2, A2, fs);
 
 figure('Name','Butterworth')
-freqz(B2, A2, 1024, fs);
+freqz(Bz, Az, 1024, fs);
 grid on;
-
-
 
 
 % 设计椭圆带通滤波器
@@ -71,7 +69,7 @@ grid on;
 
 fir_audio = fftfilt(b,audio);
 
-figure('Name','Time & Freq After Hamming fitting')
+figure('Name','Time & Freq After Kasier fitting')
 
 TimeFrep_plot(t,fir_audio,fs)
 
@@ -79,7 +77,7 @@ TimeFrep_plot(t,fir_audio,fs)
 
 % 巴特沃斯滤波器对信号进行滤波
 
-iir1_audio = filter(B2,A2,audio);
+iir1_audio = filter(Bz,Az,audio);
 
 figure('Name','Time & Freq After Butterworth fitting')
 
@@ -97,8 +95,10 @@ TimeFrep_plot(t,iir2_audio,fs)
 
 
 % Butterworth,ellip滤波有问题
-
 sound(fir_audio,fs,16);
+
+
+
 
 
 
