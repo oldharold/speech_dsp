@@ -1,3 +1,5 @@
+% main_third.m 使用子函数
+
 filename = 'keyboad-typing.wav';
 
 [audio, fs] = audioread(filename); 
@@ -11,25 +13,10 @@ disp(['采样点数为 ' num2str(sampleNum)]);
 % 时间轴
 t = (0:(length(audio)-1))*(1/fs);
 
-% 音频的FFT
-audio_fft = fft(audio);
-
-freqfft = (0:(length(audio_fft)/2-1))*(fs/length(audio_fft));
-
 % 时域和频域
 figure('Name','Time & Freq')
 
-subplot(211);
-plot(t, audio);
-xlabel('Time (s)');
-ylabel('Amplitude');
-grid on;
-
-subplot(212);
-plot(freqfft, abs(audio_fft(1:length(audio_fft)/2)));
-xlabel('Frequency (Hz)');
-ylabel('|X(f)|');
-grid on;
+TimeFrep_plot(t,audio,fs)
 
 
 % 利用汉明窗设计低通滤波器
@@ -76,33 +63,23 @@ freqz(B3, A3, 1024, fs);
 grid on;
 
 
-% 用滤波器对信号进行滤波
+% 用汉明窗滤波器对信号进行滤波
 
 fir_audio = fftfilt(b,audio);
 
-fir_audio_fft = fft(fir_audio);
+figure('Name','Time & Freq After Hamming fitting')
 
-fir_freqfft = (0:(length(fir_audio_fft)/2-1))*(fs/length(fir_audio_fft));
-
-% 时域和频域
-figure('Name','Time & Freq After fitting')
-
-subplot(211);
-plot(t, fir_audio);
-xlabel('Time (s)');
-ylabel('Amplitude');
-grid on;
-
-subplot(212);
-plot(fir_freqfft, abs(fir_audio_fft(1:length(fir_audio_fft)/2)));
-xlabel('Frequency (Hz)');
-ylabel('|X(f)|');
-grid on;
+TimeFrep_plot(t,fir_audio,fs)
 
 
 
+% 巴特沃斯滤波器对信号进行滤波
 
+iir1_audio = filter(B2,A2,audio);
 
+figure('Name','Time & Freq After Butterworth fitting')
+
+TimeFrep_plot(t,iir1_audio,fs)
 
 
 
