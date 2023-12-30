@@ -37,14 +37,18 @@ grid on;
 % rp2=1 rs2=100 (dB)
 
 fp2=4800; fs2=5000; rp2=1; rs2=100;  
-wp2_n = fp2 / (fs/2); ws2_n = fs2 / (fs/2);     %归一化
+wp2 = 2*pi*fp2/fs; ws2 = 2*pi*fs2/fs;     %归一化
+wp2n = 2*tan(wp2/2)/5;
+ws2n = 2*tan(ws2/2)/5;
 
-[N2,wc2] = buttord(wp2_n,ws2_n,rp2,rs2);
+[N2,wc2] = buttord(wp2n,ws2n,rp2,rs2);
 [B2, A2] = butter(N2, wc2, 'high');
 
 figure('Name','Butterworth')
 freqz(B2, A2, 1024, fs);
 grid on;
+
+
 
 
 % 设计椭圆带通滤波器
@@ -80,6 +84,20 @@ iir1_audio = filter(B2,A2,audio);
 figure('Name','Time & Freq After Butterworth fitting')
 
 TimeFrep_plot(t,iir1_audio,fs)
+
+
+
+
+% 椭圆滤波器对信号进行滤波
+
+iir2_audio = filter(B3,A3,audio);
+
+figure('Name','Time & Freq After Ellip fitting')
+
+TimeFrep_plot(t,iir2_audio,fs)
+
+
+
 
 
 
