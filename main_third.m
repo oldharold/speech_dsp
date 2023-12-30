@@ -19,13 +19,13 @@ figure('Name','Time & Freq')
 TimeFrep_plot(t,audio,fs)
 
 
-% 利用汉明窗设计低通滤波器
+% 利用kaiser窗设计低通滤波器
 % fp1=1000 fs1=1200 (Hz)
 % rp1=1 rs1=100 (dB)
 
 fp1=1000; fs1=1200; rp1=1; rs1=100;
 N1 = 48;
-b = fir1(N1,fp1/(fs/2),'low',hamming(N1+1));  % 使用汉明窗
+b = fir1(N1,fp1/(fs/2),'low',kaiser(N1+1));  % 使用汉明窗
 
 figure('Name','Hamming');
 freqz(b, 1, 1024, fs);
@@ -67,7 +67,7 @@ freqz(B3, A3, 1024, fs);
 grid on;
 
 
-% 用汉明窗滤波器对信号进行滤波
+% 用kaiser窗滤波器对信号进行滤波
 
 fir_audio = fftfilt(b,audio);
 
@@ -86,8 +86,6 @@ figure('Name','Time & Freq After Butterworth fitting')
 TimeFrep_plot(t,iir1_audio,fs)
 
 
-
-
 % 椭圆滤波器对信号进行滤波
 
 iir2_audio = filter(B3,A3,audio);
@@ -96,6 +94,11 @@ figure('Name','Time & Freq After Ellip fitting')
 
 TimeFrep_plot(t,iir2_audio,fs)
 
+
+
+% Butterworth,ellip滤波有问题
+
+sound(fir_audio,fs,16);
 
 
 
