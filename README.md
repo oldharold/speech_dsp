@@ -8,6 +8,7 @@ TimeFreq_plot.m 为绘图函数，供 main.m 调用。
 
 speechDSP.mlapp 为GUI界面，我设计的界面如下，如你所见，它并不好看。
 
+
 ![](gui.png)
 
 
