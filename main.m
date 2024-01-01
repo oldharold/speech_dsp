@@ -2,6 +2,7 @@ filename = 'keyboad-typing.wav';
 
 [audio, fs] = audioread(filename); 
 
+sound(audio)
 % 采样点数
 sampleNum = length(audio); 
 disp(['采样频率为 ' num2str(fs/1000) ' kHz']);
