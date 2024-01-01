@@ -1,3 +1,5 @@
+clear;clc;close all
+
 filename = 'keyboad-typing.wav';
 
 [audio, fs] = audioread(filename); 
@@ -41,7 +43,6 @@ ws1=2*pi*fs1/fs;
 
 figure('Name','Lowpass IIR ')
 freqz(Bz1, Az1, 1024, fs);
-
 
 
 
