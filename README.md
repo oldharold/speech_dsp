@@ -1,6 +1,9 @@
-# DSP课程作业（Matlab处理语音信号）
+### DSP课程作业（Matlab处理语音信号）
 
-main.m文件包含六个滤波器设计
-record_voice.m是录音文件，录音结果保存到record_voice.wav
-TimeFreq_plot.m是一个画图函数
+主程序 main.m 含六种滤波器之设计，详细内容请君移步源码。
 
+record_voice.m 负责录音，将录音结果保存至 record_audio.wav。
+
+TimeFreq_plot.m 为绘图函数，供 main.m 调用。
+
+笔者注：代码系赶工所成，其中部分内容因笔者技术有限，可能存误，请君小心参考。
