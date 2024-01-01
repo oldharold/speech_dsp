@@ -1,5 +1,4 @@
-function TimeFrep_plot(t,audio,fs)
-    
+function TimeFreq_plot(t,audio,fs)
     
     audio_fft = fft(audio);
 

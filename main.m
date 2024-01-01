@@ -14,7 +14,7 @@ t = (0:(length(audio)-1))*(1/fs);
 % 时域和频域
 figure('Name','Time & Freq')
 
-TimeFrep_plot(t,audio,fs)
+TimeFreq_plot(t,audio,fs)
 
 
 % 利用设计低通滤波器
@@ -56,6 +56,7 @@ figure('Name','Highpass FIR ');
 freqz(b2, 1, 1024, fs);
 
 
+% ellip设计
 wp2=2*pi*fp2/(fs/4);
 ws2=2*pi*fs2/(fs/4);
 
@@ -82,13 +83,9 @@ b3 = fir1(N,[fb1/(fs/2) fb2/(fs/2)],'bandpass',kaiser(N+1));
 figure('Name','Bandpass FIR ');
 freqz(b3);
 
-
-
 % ellip设计
-
 wp3 = [2*pi*fb1/(fs/4), 2*pi*fb2/(fs/4)];  
 ws3 = [2*pi*fc1/(fs/4), 2*pi*fc2/(fs/4)]     %归一化
-
 
 [N3,wpo3]=ellipord(wp3,ws3,rp3,rs3,'s');
 [B3,A3]=ellip(N3,rp3,rs3,wpo3,'s');
@@ -107,7 +104,7 @@ fir1_audio = fftfilt(b,audio);
 
 figure('Name','Lowpass FIR fitting');
 
-TimeFrep_plot(t,fir1_audio,fs)
+TimeFreq_plot(t,fir1_audio,fs)
 
 
 % Lowpass IIR滤波器对信号进行滤波
@@ -115,7 +112,7 @@ iir1_audio = filter(Bz1,Az1,audio);
 
 figure('Name','Lowpass IIR fitting');
 
-TimeFrep_plot(t,iir1_audio,fs)
+TimeFreq_plot(t,iir1_audio,fs)
 
 
 
@@ -125,7 +122,7 @@ fir2_audio = fftfilt(b2,audio);
 
 figure('Name','Highpass FIR fitting')
 
-TimeFrep_plot(t,fir2_audio,fs)
+TimeFreq_plot(t,fir2_audio,fs)
 
 
 % Highpass IIR滤波器对信号进行滤波
@@ -133,7 +130,7 @@ iir2_audio = filter(Bz2,Az2,audio);
 
 figure('Name','Highpass IIR fitting');
 
-TimeFrep_plot(t,iir2_audio,fs)
+TimeFreq_plot(t,iir2_audio,fs)
 
 
 % Bandpass FIR滤波器对信号进行滤波
@@ -142,7 +139,7 @@ fir3_audio = fftfilt(b3,audio);
 
 figure('Name','Bandpass FIR fitting')
 
-TimeFrep_plot(t,fir3_audio,fs)
+TimeFreq_plot(t,fir3_audio,fs)
 
 
 % Bandpass IIR滤波器对信号进行滤波
@@ -151,7 +148,7 @@ iir3_audio = filter(Bz3,Az3,audio);
 
 figure('Name','Bandpass IIR fitting')
 
-TimeFrep_plot(t,iir3_audio,fs)
+TimeFreq_plot(t,iir3_audio,fs)
 
 
 
